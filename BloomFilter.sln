@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilter", "BloomFilter.csproj", "{F6CDFA64-A863-4E3B-8207-06C7784E235E}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BloomFilter.Tests", "..\BloomFilterNet.Tests\BloomFilter.Tests.fsproj", "{00628FA0-70D3-4B94-82F1-5C172C77021C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilter.Benchmarks", "..\BloomFilter.Benchmarks\BloomFilter.Benchmarks.csproj", "{A22121D8-E51F-4C03-A066-CAE143195A82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F6CDFA64-A863-4E3B-8207-06C7784E235E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6CDFA64-A863-4E3B-8207-06C7784E235E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6CDFA64-A863-4E3B-8207-06C7784E235E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00628FA0-70D3-4B94-82F1-5C172C77021C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00628FA0-70D3-4B94-82F1-5C172C77021C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00628FA0-70D3-4B94-82F1-5C172C77021C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00628FA0-70D3-4B94-82F1-5C172C77021C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22121D8-E51F-4C03-A066-CAE143195A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22121D8-E51F-4C03-A066-CAE143195A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22121D8-E51F-4C03-A066-CAE143195A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22121D8-E51F-4C03-A066-CAE143195A82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
