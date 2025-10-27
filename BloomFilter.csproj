@@ -15,14 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Hashing\" />
-    <Folder Include="Math\" />
-    <Folder Include="IO\" />
-    <Folder Include="BloomFilter\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BloomFilter.Benchmarks\BloomFilter.Benchmarks.csproj" />
     <ProjectReference Include="..\BloomFilterNet.Tests\BloomFilter.Tests.fsproj" />
   </ItemGroup>
