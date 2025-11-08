@@ -13,8 +13,17 @@ namespace BloomFilter.Hashing
     /// </summary>
     public sealed class MurmurHash3 : IHashFunction
     {
-        // A default seed value.
-        private const uint Seed = 0;
+        // Store the seed for this instance
+        private readonly uint _seed;
+
+        /// <summary>
+        /// Initializes a new instance of the MurmurHash3 function.
+        /// </summary>
+        /// <param name="seed">The seed value to use for the hash. Defaults to 0.</param>
+        public MurmurHash3(uint seed = 0)
+        {
+            _seed = seed;
+        }
 
         /// <summary>
         /// Computes the 32-bit MurmurHash3 hash of the given data.
@@ -26,7 +35,8 @@ namespace BloomFilter.Hashing
             const uint c1 = 0xcc9e2d51;
             const uint c2 = 0x1b873593;
 
-            uint h1 = Seed;
+            // Use the instance seed
+            uint h1 = _seed;
             int nblocks = data.Length / 4;
 
             // Process 4-byte chunks

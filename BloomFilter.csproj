@@ -14,9 +14,4 @@
     <Version>1.0.0</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BloomFilter.Benchmarks\BloomFilter.Benchmarks.csproj" />
-    <ProjectReference Include="..\BloomFilterNet.Tests\BloomFilter.Tests.fsproj" />
-  </ItemGroup>
-
 </Project>
