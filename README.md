@@ -10,7 +10,7 @@ Developed as part of a Bachelor Thesis at VŠB-TUO.
 All documentation, including theoretical background, API references, and a "Getting Started" guide, can be found in our **[GitHub Wiki](../../wiki)**.
 
 * [English Documentation](../../wiki/Home)
-* [Česká dokumentace](../../wiki/Home-CZ)
+* [Česká dokumentace](../../wiki/Úvod)
 
 ### Installation
 ```bash
