@@ -13,6 +13,16 @@ namespace BloomFilter.BloomFilter
     public interface IBloomFilter<T>
     {
         /// <summary>
+        /// Gets the number of elements currently added to the filter.
+        /// </summary>
+        long Count { get; }
+
+        /// <summary>
+        /// Gets the expected capacity (n) this filter was designed for.
+        /// </summary>
+        long Capacity { get; }
+
+        /// <summary>
         /// Adds an element to the Bloom filter.
         /// </summary>
         /// <param name="element">The element to be added.</param>
