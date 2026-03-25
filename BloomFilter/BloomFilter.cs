@@ -14,8 +14,7 @@ namespace BloomFilter.BloomFilter
     /// Implements a classic Bloom filter data structure.
     /// This implementation is thread-safe.
     /// </summary>
-    /// <typeparam name="T">The type of elements to be stored. Note: The element's .ToString() method 
-    /// will be used to generate its byte representation for hashing.</typeparam>
+    /// <typeparam name="T">The type of elements to be stored.</typeparam>
     public class BloomFilter<T> : IBloomFilter<T>
     {
         private readonly BitArray _bits;
@@ -23,7 +22,7 @@ namespace BloomFilter.BloomFilter
         private readonly int _k; // Number of hash functions
 
         private long _itemCount;
-        private readonly long _capacity; // The 'n' this filter was designed for
+        private readonly long _capacity; // The 'n' variable how much items this filter was designed to hold
 
         /// <summary>
         /// Gets the number of items that have been added to the filter.
@@ -34,9 +33,8 @@ namespace BloomFilter.BloomFilter
         /// </summary>
         public long Capacity => _capacity;
 
-        // Use the wrapper for hashing logic
         private readonly DoubleHashWrapper _hashWrapper;
-        private readonly object _lock = new object(); // For thread-safety
+        private readonly object _lock = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BloomFilter{T}"/> class.

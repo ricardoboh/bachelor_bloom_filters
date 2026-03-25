@@ -23,8 +23,6 @@ namespace BloomFilter.Utils
             // BitArray.Length is the number of bits. We need (bits + 7) / 8 bytes.
             int byteCount = (bits.Length + 7) / 8;
             byte[] bytes = new byte[byteCount];
-
-            // Copy the bits into the byte array.
             bits.CopyTo(bytes, 0);
 
             return bytes;

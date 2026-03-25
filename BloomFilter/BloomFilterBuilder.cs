@@ -11,7 +11,7 @@ using BloomFilter.Hashing;
 namespace BloomFilter.BloomFilter
 {
     /// <summary>
-    /// A fluent builder for creating Bloom filter instances.
+    /// Builder for creating Bloom filter instances.
     /// </summary>
     public class BloomFilterBuilder<T>
     {
@@ -94,6 +94,9 @@ namespace BloomFilter.BloomFilter
             return new DoubleHashWrapper(hash1, hash2);
         }
 
+        /// <summary>
+        /// Checks if both parameters are filled and valid.
+        /// </summary>
         private void ValidateParameters()
         {
             if (_capacity == 0)

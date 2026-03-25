@@ -36,7 +36,7 @@ namespace BloomFilter.IO
             // 'true' for leaveOpen ensures the stream isn't closed by the writer.
             using (var writer = new BinaryWriter(stream, System.Text.Encoding.UTF8, true))
             {
-                // --- Case 1: Classic Bloom Filter ---
+                // Classic Bloom Filter
                 if (filter is BloomFilter<string> classicFilter)
                 {
                     writer.Write(HEADER_CLASSIC);
@@ -50,7 +50,7 @@ namespace BloomFilter.IO
                     writer.Write(bytes.Length);
                     writer.Write(bytes);
                 }
-                // --- Case 2: Counting Bloom Filter ---
+                // Counting Bloom Filter
                 else if (filter is CountingBloomFilter<string> countingFilter)
                 {
                     writer.Write(HEADER_COUNTING);
@@ -63,16 +63,13 @@ namespace BloomFilter.IO
                     writer.Write(counters.Length);
                     writer.Write(counters);
                 }
-                // --- Case 3: Scalable Bloom Filter (Recursive) ---
+                // Scalable Bloom Filter
                 else if (filter is ScalableBloomFilter<string> scalableFilter)
                 {
                     writer.Write(HEADER_SCALABLE);
-
-                    // We must save the internal list of filters.
                     var internalFilters = GetInternalFilters(scalableFilter);
-                    writer.Write(internalFilters.Count); // Write how many filters are inside
+                    writer.Write(internalFilters.Count);
 
-                    // Recursively call Save for each internal filter
                     foreach (var f in internalFilters)
                     {
                         Save(f, stream);
@@ -114,11 +111,10 @@ namespace BloomFilter.IO
             using (var reader = new BinaryReader(stream, System.Text.Encoding.UTF8, true))
             {
                 string header = reader.ReadString();
-                var wrapper = CreateHashWrapper(); // Create default hash functions
+                var wrapper = CreateHashWrapper();
 
                 switch (header)
                 {
-                    // --- Case 1: Load Classic ---
                     case HEADER_CLASSIC:
                         {
                             int m = reader.ReadInt32();
@@ -130,13 +126,10 @@ namespace BloomFilter.IO
 
                             var bits = BitArrayExtension.FromByteArray(bytes, m);
 
-                            // Create a new filter and inject the loaded data
                             var filter = new BloomFilter<string>(m, k, capacity, wrapper);
                             SetBitArray(filter, bits);
                             return filter;
                         }
-
-                    // --- Case 2: Load Counting ---
                     case HEADER_COUNTING:
                         {
                             int m = reader.ReadInt32();
@@ -146,24 +139,18 @@ namespace BloomFilter.IO
                             int byteCount = reader.ReadInt32();
                             byte[] counters = reader.ReadBytes(byteCount);
 
-                            // Create a new filter and inject the loaded data
                             var filter = new CountingBloomFilter<string>(m, k, capacity, wrapper);
                             SetCounterArray(filter, counters);
                             return filter;
                         }
-
-                    // --- Case 3: Load Scalable (Recursive) ---
                     case HEADER_SCALABLE:
                         {
-                            // To load a scalable filter, we must use reflection to
-                            // call its private parameterless constructor.
                             var sbf = (ScalableBloomFilter<string>)Activator.CreateInstance(
-                                typeof(ScalableBloomFilter<string>), true); // 'true' = non-public ctor
+                                typeof(ScalableBloomFilter<string>), true);
 
                             var internalFilters = GetInternalFilters(sbf);
                             int filterCount = reader.ReadInt32();
 
-                            // Recursively call Load for each internal filter
                             for (int i = 0; i < filterCount; i++)
                             {
                                 internalFilters.Add(Load(stream));
@@ -180,14 +167,10 @@ namespace BloomFilter.IO
         #endregion
 
         #region --- Reflection Helpers ---
-
-        // Helper to create the default hashing strategy for loaded filters
         private DoubleHashWrapper CreateHashWrapper()
         {
             return new DoubleHashWrapper(new MurmurHash3(0), new XXHash(1));
         }
-
-        // --- Getters for "Save" ---
 
         private (int m, int k, long capacity) GetFilterParameters(object filter)
         {
@@ -212,8 +195,6 @@ namespace BloomFilter.IO
             return (List<IBloomFilter<string>>)GetPrivateField(filter, "_filters");
         }
 
-        // --- Setters for "Load" ---
-
         private void SetBitArray(BloomFilter<string> filter, BitArray bits)
         {
             SetPrivateField(filter, "_bits", bits);
@@ -223,8 +204,6 @@ namespace BloomFilter.IO
         {
             SetPrivateField(filter, "_counters", counters);
         }
-
-        // --- Generic Reflection Methods ---
 
         private object GetPrivateField(object obj, string fieldName)
         {

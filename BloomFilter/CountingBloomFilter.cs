@@ -10,8 +10,8 @@ using System.Threading;
 namespace BloomFilter.BloomFilter
 {
     /// <summary>
-    /// Implements a thread-safe Counting Bloom filter, which supports element deletion.
-    /// It uses an array of 8-bit counters.
+    /// Implements a thread-safe Counting Bloom filter, which supports operation
+    /// element deletion. It uses an array of 8-bit counters.
     /// </summary>
     /// <typeparam name="T">The type of elements to be stored.</typeparam>
     public class CountingBloomFilter<T> : ICountingBloomFilter<T>
@@ -22,18 +22,19 @@ namespace BloomFilter.BloomFilter
         private readonly DoubleHashWrapper _hashWrapper;
 
         private long _itemCount;
-        private readonly long _capacity; // The 'n' this filter was designed for
+        private readonly long _capacity; // The 'n' variable how much items this filter was designed to hold
 
         /// <summary>
         /// Gets the number of items that have been added to the filter.
         /// </summary>
         public long Count => _itemCount;
+
         /// <summary>
         /// Gets the expected number of items the filter was designed to hold.
         /// </summary>
         public long Capacity => _capacity;
 
-        private readonly object _lock = new object(); // For thread-safety
+        private readonly object _lock = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CountingBloomFilter{T}"/> class.
@@ -73,7 +74,6 @@ namespace BloomFilter.BloomFilter
             {
                 foreach (int position in positions)
                 {
-                    // Increment, but protect against overflow
                     if (_counters[position] < byte.MaxValue)
                     {
                         _counters[position]++;
@@ -97,7 +97,7 @@ namespace BloomFilter.BloomFilter
             {
                 foreach (int position in positions)
                 {
-                    // If any counter is 0, the element is definitely not present
+                    // If any counter is 0, the item is definitely not present
                     if (_counters[position] == 0)
                     {
                         return false;
@@ -123,7 +123,7 @@ namespace BloomFilter.BloomFilter
             {
                 foreach (int position in positions)
                 {
-                    // Decrement, but protect against underflow
+                    // Protection against underflow
                     if (_counters[position] > 0)
                     {
                         _counters[position]--;

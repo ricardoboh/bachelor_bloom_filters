@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Authors>Richard [YourSurname]</Authors>
-    <Company>Your University</Company>
-    <Product>BloomFilterNet</Product>
+    <Authors>Richard Bohunovský</Authors>
+    <Company>Vysoká škola báňská – Technická univerzita Ostrava</Company>
+    <Product>BloomFilter</Product>
     <Description>Probabilistic data structures for .NET: Bloom, Counting, and Scalable filters.</Description>
     <PackageProjectUrl>https://github.com/[yourrepo]</PackageProjectUrl>
     <RepositoryUrl>https://github.com/[yourrepo]</RepositoryUrl>

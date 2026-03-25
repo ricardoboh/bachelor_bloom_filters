@@ -8,8 +8,7 @@ using BloomFilter.Utils;
 using System.IO;
 using System.Collections;
 using System.Text.Json;
-using System.Text;
-using System.Reflection; // Required for reflection
+using System.Reflection;
 
 namespace BloomFilter.IO
 {
@@ -39,7 +38,7 @@ namespace BloomFilter.IO
         /// </summary>
         private object GetExportObject(IBloomFilter<string> filter)
         {
-            // --- Case 1: Classic Bloom Filter ---
+            // Classic Bloom Filter
             if (filter is BloomFilter<string> classicFilter)
             {
                 var (m, k, capacity) = GetFilterParameters(classicFilter);
@@ -59,7 +58,7 @@ namespace BloomFilter.IO
                     Data = bitString.ToString()
                 };
             }
-            // --- Case 2: Counting Bloom Filter ---
+            // Counting Bloom Filter
             else if (filter is CountingBloomFilter<string> countingFilter)
             {
                 var (m, k, capacity) = GetFilterParameters(countingFilter);
@@ -69,10 +68,10 @@ namespace BloomFilter.IO
                 {
                     Type = "Counting",
                     Parameters = new BloomFilterParameters { M = m, K = k, Capacity = capacity },
-                    Data = counters // Serializes as a JSON array [0, 1, 0, 2, ...]
+                    Data = counters
                 };
             }
-            // --- Case 3: Scalable Bloom Filter (Recursive) ---
+            // Scalable Bloom Filter
             else if (filter is ScalableBloomFilter<string> scalableFilter)
             {
                 var internalFilters = GetInternalFilters(scalableFilter);
@@ -80,17 +79,12 @@ namespace BloomFilter.IO
                 return new
                 {
                     Type = "Scalable",
-                    // This is the recursive part:
-                    // We call this same function for each internal filter.
                     InternalFilters = internalFilters.Select(f => GetExportObject(f)).ToList()
                 };
             }
 
-            // --- Fallback ---
             throw new NotSupportedException($"Export for filter type {filter.GetType().Name} is not implemented.");
         }
-
-        // --- Reflection Helpers (now work on 'object' for reuse) ---
 
         private (int m, int k, long capacity) GetFilterParameters(object filter)
         {
