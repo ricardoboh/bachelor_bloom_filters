@@ -1,6 +1,6 @@
 # StructureBloomFilters
 
-[![NuGet version](https://badge.fury.io/nu/StructureBloomFilters.Bachelor.svg)](https://badge.fury.io/nu/StructureBloomFilters.Bachelor)
+[![NuGet version](https://badge.fury.io/nu/StructureBloomFilters.svg)](https://badge.fury.io/nu/StructureBloomFilters)
 
 Highly optimized, probabilistic data structures for the .NET platform. This library provides implementations of **Classic**, **Counting**, and **Scalable Bloom Filters**. 
 
