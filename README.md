@@ -12,7 +12,7 @@ All documentation, including theoretical background, API references, and a "Gett
 * [English Documentation](../../wiki/Home)
 * [Česká dokumentace](../../wiki/Home-CZ)
 
-### 📥 Installation
+### Installation
 ```bash
 dotnet add package StructureBloomFilters
 ```
